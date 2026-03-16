@@ -162,33 +162,15 @@ export default function HeroScrollAnimation() {
                         <div className="w-12 h-1 bg-primary rounded-full mt-3 shadow-[0_0_12px_rgba(123,97,255,0.5)]" />
                     </div>
                 </motion.div>
-
-                {/* Scroll hint — pinned at very bottom */}
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 1.2, duration: 1 }}
-                    className="absolute bottom-4 inset-x-0 flex flex-col items-center gap-1 pointer-events-none select-none z-10"
-                >
-                    <span className="text-[10px] tracking-widest uppercase text-gray-500">Scroll to Explore</span>
-                    <motion.div
-                        animate={{ y: [0, 5, 0] }}
-                        transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
-                        className="w-4 h-4 text-gray-600"
-                    >
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                        </svg>
-                    </motion.div>
-                </motion.div>
             </div>
+
 
             {/* Portfolio title + scroll hint — combined bottom anchor */}
             <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.3 }}
-                className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-1 pointer-events-none select-none text-center max-w-[80vw]"
+                className="absolute bottom-10 inset-x-0 z-20 flex flex-col items-center justify-center gap-1 pointer-events-none select-none"
             >
                 <span className="text-2xl sm:text-3xl md:text-6xl font-semibold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary via-white/80 to-primary-dark">
                     Portfolio
