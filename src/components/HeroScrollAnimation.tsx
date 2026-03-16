@@ -106,11 +106,13 @@ export default function HeroScrollAnimation() {
         <section
             ref={containerRef}
             id="home"
-            className="relative min-h-screen bg-black overflow-hidden flex flex-col pb-10 md:pb-0"
+            className="relative min-h-[100svh] bg-black overflow-hidden flex flex-col pb-20 md:pb-0"
         >
             {/* Canvas background */}
             <div className="absolute inset-0 pointer-events-none">
                 <div className="absolute inset-0 bg-black/50 z-10" />
+                {/* Bottom gradient for readability */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10" />
                 <canvas
                     ref={canvasRef}
                     className="absolute inset-0 w-full h-full block"
@@ -181,16 +183,26 @@ export default function HeroScrollAnimation() {
                 </motion.div>
             </div>
 
-            {/* "Portfolio" branding — absolute, sits between subtitle and scroll hint */}
+            {/* Portfolio title + scroll hint — combined bottom anchor */}
             <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.3 }}
-                className="absolute bottom-16 sm:bottom-14 md:bottom-12 inset-x-0 z-20 flex justify-center items-center pointer-events-none select-none"
+                className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-1 pointer-events-none select-none text-center max-w-[80vw]"
             >
-                <span className="text-3xl sm:text-4xl md:text-6xl font-semibold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary via-white/80 to-primary-dark text-center px-4">
+                <span className="text-2xl sm:text-3xl md:text-6xl font-semibold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary via-white/80 to-primary-dark">
                     Portfolio
                 </span>
+                <span className="text-xs tracking-widest uppercase text-gray-400 mt-1">Scroll to Explore</span>
+                <motion.div
+                    animate={{ y: [0, 5, 0] }}
+                    transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
+                    className="w-4 h-4 text-gray-500 mt-0.5"
+                >
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </motion.div>
             </motion.div>
         </section>
     );
