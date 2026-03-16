@@ -106,7 +106,7 @@ export default function HeroScrollAnimation() {
         <section
             ref={containerRef}
             id="home"
-            className="relative min-h-screen bg-black overflow-hidden flex flex-col"
+            className="relative min-h-screen bg-black overflow-hidden flex flex-col pb-10 md:pb-0"
         >
             {/* Canvas background */}
             <div className="absolute inset-0 pointer-events-none">
@@ -124,12 +124,12 @@ export default function HeroScrollAnimation() {
 
                 <motion.div
                     style={{ opacity: titleOpacity, y: titleY, willChange: "transform" }}
-                    className="w-full max-w-[90%] sm:max-w-md p-6 md:p-8 flex flex-col items-center text-center rounded-3xl bg-black/50 border border-white/10 shadow-xl"
+                    className="w-full max-w-[85vw] sm:max-w-md mx-auto p-5 md:p-8 flex flex-col items-center text-center rounded-3xl bg-black/50 border border-white/10 shadow-xl z-30"
                 >
                     <span className="inline-block py-1 px-3 rounded-full bg-primary/20 border border-primary/30 text-primary text-xs font-bold tracking-widest mb-4 uppercase">
                         PORTFOLIO 2026
                     </span>
-                    <h1 className="text-3xl sm:text-4xl md:text-6xl font-black tracking-tighter text-white mb-3 leading-tight drop-shadow-xl">
+                    <h1 className="text-lg sm:text-4xl md:text-6xl font-black tracking-tighter text-white mb-3 leading-tight">
                         <span className="hidden sm:block">
                             Cinematic <br />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary-dark">
@@ -148,29 +148,31 @@ export default function HeroScrollAnimation() {
                     </p>
                 </motion.div>
 
-                {/* Subtitle overlay — fades in on scroll, absolutely positioned */}
+                {/* Subtitle overlay — only visible on scroll, placed at mid-lower area */}
                 <motion.div
                     style={{ opacity: subtitleOpacity, y: subtitleY }}
-                    className="absolute bottom-24 left-1/2 -translate-x-1/2 w-[calc(100%-3rem)] sm:w-auto sm:max-w-md p-5 md:p-7 flex flex-col items-center text-center rounded-3xl bg-black/50 border border-white/10 shadow-xl pointer-events-none"
+                    className="absolute bottom-[38%] sm:bottom-24 inset-x-0 flex justify-center px-6 z-30 pointer-events-none"
                 >
-                    <h2 className="text-2xl md:text-4xl font-bold tracking-tight text-white leading-tight">
-                        Scroll to Experience the Story
-                    </h2>
-                    <div className="w-16 h-1 bg-primary rounded-full mt-4 shadow-[0_0_12px_rgba(123,97,255,0.5)]" />
+                    <div className="w-full max-w-[85vw] sm:max-w-md p-4 md:p-7 flex flex-col items-center text-center rounded-3xl bg-black/60 border border-white/10 shadow-xl">
+                        <h2 className="text-lg sm:text-2xl md:text-4xl font-bold tracking-tight text-white leading-tight">
+                            Scroll to Experience the Story
+                        </h2>
+                        <div className="w-12 h-1 bg-primary rounded-full mt-3 shadow-[0_0_12px_rgba(123,97,255,0.5)]" />
+                    </div>
                 </motion.div>
 
-                {/* Scroll hint */}
+                {/* Scroll hint — pinned at very bottom */}
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 1.2, duration: 1 }}
-                    className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none select-none"
+                    className="absolute bottom-4 inset-x-0 flex flex-col items-center gap-1 pointer-events-none select-none z-10"
                 >
-                    <span className="text-xs tracking-widest uppercase text-gray-400">Scroll to Explore</span>
+                    <span className="text-[10px] tracking-widest uppercase text-gray-500">Scroll to Explore</span>
                     <motion.div
-                        animate={{ y: [0, 6, 0] }}
+                        animate={{ y: [0, 5, 0] }}
                         transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
-                        className="w-5 h-5 text-gray-500"
+                        className="w-4 h-4 text-gray-600"
                     >
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
                             <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
@@ -179,12 +181,12 @@ export default function HeroScrollAnimation() {
                 </motion.div>
             </div>
 
-            {/* "Portfolio" — absolute bottom-center branding */}
+            {/* "Portfolio" branding — absolute, sits between subtitle and scroll hint */}
             <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.3 }}
-                className="absolute bottom-20 md:bottom-24 inset-x-0 z-20 flex justify-center items-center pointer-events-none select-none"
+                className="absolute bottom-16 sm:bottom-14 md:bottom-12 inset-x-0 z-20 flex justify-center items-center pointer-events-none select-none"
             >
                 <span className="text-3xl sm:text-4xl md:text-6xl font-semibold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary via-white/80 to-primary-dark text-center px-4">
                     Portfolio
