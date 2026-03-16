@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
+  <!-- DaVinci Resolve Logo (More accurate representation) -->
+  <circle cx="50" cy="50" r="45" fill="#2E3338"/>
+  <circle cx="50" cy="50" r="42" fill="none" stroke="#4a5259" stroke-width="1"/>
+  
+  <!-- Top Petal (Cyan/Blue) -->
+  <path d="M50 25 C65 25, 65 48, 50 60 C35 48, 35 25, 50 25 Z" fill="#69C9D0" opacity="0.9"/>
+  <!-- Bottom Left Petal (Yellow/Green) -->
+  <path d="M30 60 C23 48, 40 35, 50 45 C50 63, 38 72, 30 60 Z" fill="#E2E755" opacity="0.9"/>
+  <!-- Bottom Right Petal (Red/Pink) -->
+  <path d="M70 60 C77 48, 60 35, 50 45 C50 63, 62 72, 70 60 Z" fill="#FF5E5B" opacity="0.9"/>
+
+  <!-- Center highlight glow -->
+  <circle cx="50" cy="48" r="8" fill="#FFFFFF" opacity="0.3" filter="blur(2px)"/>
+</svg>

@@ -1,0 +1,45 @@
+
+> video-portfolio@0.1.0 build
+> next build
+
+  Γû▓ Next.js 14.2.35
+
+   Creating an optimized production build ...
+ Γ£ô Compiled successfully
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/5) ...
+   Generating static pages (1/5) 
+   Generating static pages (2/5) 
+   Generating static pages (3/5) 
+TypeError: Cannot read properties of undefined (reading 'S')
+    at nN.exports.np.exports (C:\SADGUNA WEBD\PORTFOLIO\video-portfolio\.next\server\app\page.js:389:97864)
+    at C:\SADGUNA WEBD\PORTFOLIO\video-portfolio\.next\server\app\page.js:393:3991
+    at 3578 (C:\SADGUNA WEBD\PORTFOLIO\video-portfolio\.next\server\app\page.js:393:4029)
+    at Object.t [as require] (C:\SADGUNA WEBD\PORTFOLIO\video-portfolio\.next\server\webpack-runtime.js:1:127)
+    at require (C:\SADGUNA WEBD\PORTFOLIO\video-portfolio\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:17:18811)
+    at A (C:\SADGUNA WEBD\PORTFOLIO\video-portfolio\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:94398)
+    at R (C:\SADGUNA WEBD\PORTFOLIO\video-portfolio\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:92949)
+    at rR (C:\SADGUNA WEBD\PORTFOLIO\video-portfolio\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:33975)
+    at nL (C:\SADGUNA WEBD\PORTFOLIO\video-portfolio\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:62305)
+    at nB (C:\SADGUNA WEBD\PORTFOLIO\video-portfolio\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:67539) {
+  digest: '2733889018'
+}
+
+Error occurred prerendering page "/". Read more: https://nextjs.org/docs/messages/prerender-error
+
+TypeError: Cannot read properties of undefined (reading 'S')
+    at nN.exports.np.exports (C:\SADGUNA WEBD\PORTFOLIO\video-portfolio\.next\server\app\page.js:389:97864)
+    at C:\SADGUNA WEBD\PORTFOLIO\video-portfolio\.next\server\app\page.js:393:3991
+    at 3578 (C:\SADGUNA WEBD\PORTFOLIO\video-portfolio\.next\server\app\page.js:393:4029)
+    at Object.t [as require] (C:\SADGUNA WEBD\PORTFOLIO\video-portfolio\.next\server\webpack-runtime.js:1:127)
+    at require (C:\SADGUNA WEBD\PORTFOLIO\video-portfolio\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:17:18811)
+    at A (C:\SADGUNA WEBD\PORTFOLIO\video-portfolio\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:94398)
+    at R (C:\SADGUNA WEBD\PORTFOLIO\video-portfolio\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:92949)
+    at rR (C:\SADGUNA WEBD\PORTFOLIO\video-portfolio\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:33975)
+    at nL (C:\SADGUNA WEBD\PORTFOLIO\video-portfolio\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:62305)
+    at nB (C:\SADGUNA WEBD\PORTFOLIO\video-portfolio\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:67539)
+ Γ£ô Generating static pages (5/5)
+
+> Export encountered errors on following paths:
+	/page: /

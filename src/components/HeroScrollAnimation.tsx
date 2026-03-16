@@ -1,0 +1,195 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+// Register ScrollTrigger
+if (typeof window !== "undefined") {
+    gsap.registerPlugin(ScrollTrigger);
+}
+
+const FRAME_COUNT = 63;
+const getFramePath = (index: number) => {
+    const paddedIndex = index.toString().padStart(2, "0");
+    return `/ezgif-split/frame_${paddedIndex}_delay-0.066s.webp`;
+};
+
+export default function HeroScrollAnimation() {
+    const canvasRef = useRef<HTMLCanvasElement>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
+    const [images, setImages] = useState<HTMLImageElement[]>([]);
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ["start start", "end end"],
+    });
+
+    // Text Animations - compressed ranges for single-viewport hero
+    const titleOpacity = useTransform(scrollYProgress, [0, 0.15, 0.3], [1, 1, 0]);
+    const titleY = useTransform(scrollYProgress, [0, 0.3], [0, -40]);
+
+    const subtitleOpacity = useTransform(scrollYProgress, [0.3, 0.5, 0.7], [0, 1, 0]);
+    const subtitleY = useTransform(scrollYProgress, [0.3, 0.5, 0.7], [40, 0, -40]);
+
+    // Preload Images
+    useEffect(() => {
+        const loadedImages: HTMLImageElement[] = [];
+        let loadedCount = 0;
+
+        for (let i = 0; i < FRAME_COUNT; i++) {
+            const img = new Image();
+            img.src = getFramePath(i);
+            img.onload = () => {
+                loadedCount++;
+                if (loadedCount === FRAME_COUNT) {
+                    setImages(loadedImages);
+                }
+            };
+            loadedImages.push(img);
+        }
+    }, []);
+
+    // GSAP Canvas Animation
+    useEffect(() => {
+        if (!canvasRef.current || images.length !== FRAME_COUNT) return;
+
+        const canvas = canvasRef.current;
+        const ctx = canvas.getContext("2d");
+        if (!ctx) return;
+
+        const render = (frameIndex: number) => {
+            const img = images[frameIndex];
+            if (!img) return;
+            const cw = canvas.width;
+            const ch = canvas.height;
+            const iw = img.width;
+            const ih = img.height;
+            const scale = Math.max(cw / iw, ch / ih);
+            const x = cw / 2 - (iw * scale) / 2;
+            const y = ch / 2 - (ih * scale) / 2;
+            ctx.clearRect(0, 0, cw, ch);
+            ctx.drawImage(img, x, y, iw * scale, ih * scale);
+        };
+
+        const resizeCanvas = () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            render(0);
+        };
+        resizeCanvas();
+        window.addEventListener("resize", resizeCanvas);
+
+        const playhead = { frame: 0 };
+
+        const st = gsap.to(playhead, {
+            frame: FRAME_COUNT - 1,
+            snap: "frame",
+            ease: "none",
+            scrollTrigger: {
+                trigger: containerRef.current,
+                start: "top top",
+                end: "+=600",
+                scrub: 0.5,
+            },
+            onUpdate: () => render(Math.round(playhead.frame)),
+        });
+
+        return () => {
+            window.removeEventListener("resize", resizeCanvas);
+            st.kill();
+            ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+        };
+    }, [images]);
+
+    return (
+        <section
+            ref={containerRef}
+            id="home"
+            className="relative min-h-screen bg-black overflow-hidden flex flex-col"
+        >
+            {/* Canvas background */}
+            <div className="absolute inset-0 pointer-events-none">
+                <div className="absolute inset-0 bg-black/50 z-10" />
+                <canvas
+                    ref={canvasRef}
+                    className="absolute inset-0 w-full h-full block"
+                    style={{ willChange: "transform" }}
+                />
+            </div>
+
+
+            {/* Content wrapper */}
+            <div className="relative z-20 flex flex-col flex-1 items-center justify-center px-6 md:px-12 py-24">
+
+                <motion.div
+                    style={{ opacity: titleOpacity, y: titleY, willChange: "transform" }}
+                    className="w-full max-w-[90%] sm:max-w-md p-6 md:p-8 flex flex-col items-center text-center rounded-3xl bg-black/50 border border-white/10 shadow-xl"
+                >
+                    <span className="inline-block py-1 px-3 rounded-full bg-primary/20 border border-primary/30 text-primary text-xs font-bold tracking-widest mb-4 uppercase">
+                        PORTFOLIO 2026
+                    </span>
+                    <h1 className="text-3xl sm:text-4xl md:text-6xl font-black tracking-tighter text-white mb-3 leading-tight drop-shadow-xl">
+                        <span className="hidden sm:block">
+                            Cinematic <br />
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary-dark">
+                                Video Editing
+                            </span>
+                        </span>
+                        <span className="block sm:hidden">
+                            Video Editing <br />
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary-dark">
+                                Portfolio
+                            </span>
+                        </span>
+                    </h1>
+                    <p className="text-sm md:text-lg text-white/70 font-medium">
+                        Turning ideas into stories
+                    </p>
+                </motion.div>
+
+                {/* Subtitle overlay — fades in on scroll, absolutely positioned */}
+                <motion.div
+                    style={{ opacity: subtitleOpacity, y: subtitleY }}
+                    className="absolute bottom-24 left-1/2 -translate-x-1/2 w-[calc(100%-3rem)] sm:w-auto sm:max-w-md p-5 md:p-7 flex flex-col items-center text-center rounded-3xl bg-black/50 border border-white/10 shadow-xl pointer-events-none"
+                >
+                    <h2 className="text-2xl md:text-4xl font-bold tracking-tight text-white leading-tight">
+                        Scroll to Experience the Story
+                    </h2>
+                    <div className="w-16 h-1 bg-primary rounded-full mt-4 shadow-[0_0_12px_rgba(123,97,255,0.5)]" />
+                </motion.div>
+
+                {/* Scroll hint */}
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 1.2, duration: 1 }}
+                    className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none select-none"
+                >
+                    <span className="text-xs tracking-widest uppercase text-gray-400">Scroll to Explore</span>
+                    <motion.div
+                        animate={{ y: [0, 6, 0] }}
+                        transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
+                        className="w-5 h-5 text-gray-500"
+                    >
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </motion.div>
+                </motion.div>
+            </div>
+
+            {/* "Portfolio" — absolute bottom-center branding */}
+            <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+                className="absolute bottom-20 md:bottom-24 inset-x-0 z-20 flex justify-center items-center pointer-events-none select-none"
+            >
+                <span className="text-3xl sm:text-4xl md:text-6xl font-semibold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary via-white/80 to-primary-dark text-center px-4">
+                    Portfolio
+                </span>
+            </motion.div>
+        </section>
+    );
+}
